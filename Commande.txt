@@ -1,0 +1,27 @@
+cd <nomdudossier> Aller dans un dossier
+cd Sortir du dossier
+ls Consulter le dossier
+mkdir <nom> Créer dossier
+touch <nom.txt> Créer fichier
+vim ou vi <nomfichier> Modifs du fichier depuis le terminal
+	--> "i" ou "a" pour modifier
+	--> Echap pour quitter le mode modif
+	--> :wp pour quitter en sauvegardant
+	--> dd pour supprimer une ligne
+
+	
+git init Initialiser un dossier en git
+git status Ce que git voit dans le dossier
+git remote add origin <adressedurépertoire.git> Répertoire en ligne sur lequel on travaille
+git remote -v Confirme le répertoire
+git clone <adressedurépertoire> Récupère en local le répertoire en ligne
+git pull origin master Met à jour le répertoire local à partir des modifs faites en ligne
+git push Ajouter nos modifs en ligne
+git rm <nomdufichier> Supprime le fichier
+
+
+UNE FOIS FICHIER CREE
+git add <nomfichier> git remarque que le fichier est là
+git commit -a -m "message"
+		   -a : "tous les fichiers du dossier"
+		   -m : message associé

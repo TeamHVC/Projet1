@@ -1,0 +1,10 @@
+Equipe 2 : TeamHVC
+Membres : - Ciminera Zack : ciminera.zack@gmail.com
+		  - Vouillamoz Frédéric : frederic.vouillamoe@etu.univ-savoie.frederic
+		  - Hurstel Aurore : hurstel.aurore@gmail.com
+		  
+Gestionnaire de version : Git
+Plateforme pour héberger notre dépôt : Github
+Editeur de texte : Principalement Notepad++
+
+Langages de programmation choisis : Python (synthèse) et Java (analyse) (pas définitif)
