@@ -1,10 +1,18 @@
 Equipe 2 : TeamHVC
 Membres : - Ciminera Zack : ciminera.zack@gmail.com
-		  - Vouillamoz FrÈdÈric : frederic.vouillamoe@etu.univ-savoie.frederic
+		  - Vouillamoz Fr√©d√©ric : frederic.vouillamoe@etu.univ-savoie.frederic
 		  - Hurstel Aurore : hurstel.aurore@gmail.com
 		  
 Gestionnaire de version : Git
-Plateforme pour hÈberger notre dÈpÙt : Github
+Plateforme pour h√©berger notre d√©p√¥t : Github
 Editeur de texte : Principalement Notepad++
 
-Langages de programmation choisis : Python (synthËse) et Java (analyse) (pas dÈfinitif)
+Langages de programmation choisis : Python (synth√®se) et Java (analyse) (pas d√©finitif)
+
+Le format PGM est un format d'images en niveau de gris. Chaque pixel est cod√© par une valeur comprise entre 0 (noir) et 256 (blanc).
+Chaque pixel correspond √† une case d'un tableau bidimensionnel (ou matrice), qui d√©finit la taille de l'image.
+Exemple : Image de dimension 4*4 (carr√© noir)
+	  0 0 0 0
+	  0 0 0 0	
+	  0 0 0 0
+  	  0 0 0 0
