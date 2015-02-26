@@ -1,0 +1,30 @@
+def image (largeur,hauteur):
+    matrice = [[1]*largeur]*hauteur
+    
+    return matrice
+   
+def affiche (k):
+    print (k)
+    return
+
+def convert (m):
+    max=0
+    for i in range (0,len(m)):
+        for j in range (0,len(m[0])):
+            if max < m[i][j] :
+                max = m[i][j]
+                
+    k='P2\n'
+    k=k+str(len(m))+' '+str(len(m[0]))+'\n'
+    k=k+str(max)+'\n'
+    i=0
+    j=0
+    for i in range (0,len(m)):
+        for j in range (0,len(m[0])):
+            if j!=0 :
+                k=k+' '+str((m[i][j]))
+            else:
+                k=k+str((m[i][j]))
+        k=k+'\n'
+        
+    return k
