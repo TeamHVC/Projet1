@@ -10,6 +10,7 @@ Editeur de texte : Principalement Notepad++
 Langages de programmation choisis : Python (synthèse) et Java (analyse) (pas définitif)
 
 - Format PGM
+La premiere ligne d'un fichier PGM contient soit p2 si c'est un fichier codé ASCII ou p5 si c'est un fichier codé binaire.
 Le format PGM est un format d'images en niveau de gris. Chaque pixel est codé par une valeur comprise entre 0 (noir) et 256 (blanc).
 Chaque pixel correspond à une case d'un tableau bidimensionnel (ou matrice), qui définit la taille de l'image.
 Exemple : Image de dimension 4*4 (carré noir)
