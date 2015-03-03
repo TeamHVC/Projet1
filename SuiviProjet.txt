@@ -36,3 +36,7 @@ Chaque tableau doit donc avoir le même nombre d'éléments.
 
 Déclarer une matrice d'entiers : int[][] matrice = new int[x][y]
 				 x étant le nombres de lignes, y le nombre de colonnes
+
+
+- Séance du mardi 3 Mars :
+Début du codage en Python, affichage d'un fichier .pgm ASCII
