@@ -1,5 +1,5 @@
 from math import *
-
+import random
 def image (largeur,hauteur):
     matrice = [[1 for j in range(0,largeur)]for i in range(0,hauteur)]
     return matrice
@@ -99,7 +99,67 @@ def segment2(image,x1, y1, x2, y2):
                     else:
                         X=X+1
                         Y=Y+1
-        
+                        
+def segmentTab(x1, y1, x2, y2):
+    X=min(x1,x2)
+    Y=min(y1,y2)
+    T=[]
+    i=0
+    if (x2-x1)==0:
+        while (Y!=max(y1,y2)):
+            T=T+[(X,Y)]
+            Y=Y+1
+    else:
+        if y2>y1:
+            C=((y2-y1)/(x2-x1))
+            b=y1-C*x1
+            
+            if C>0:
+                while (X!=max(x1,x2)+1 and Y!=max(y1,y2)+1):
+                    if (y2-y1)*X-Y*(x2-x1)+b*(x2-x1)<=0:
+                        X=X+1
+                    else:
+                        
+                        X=X-1
+                        T=T+[(X,Y)]
+                        Y=Y+1
+                    
+            else:
+                X=max(x1,x2)
+                while (X!=min(x1,x2)-1 and Y!=max(y1,y2)+1):
+                    if (y2-y1)*X-Y*(x2-x1)+b*(x2-x1)>=0:
+                       
+                        X=X-1
+                    else:
+                        
+                        X=X+1
+                        T=T+[(X,Y)]
+                        Y=Y+1
+        else:
+            C=((y1-y2)/(x1-x2))
+            b=y1-C*x1
+            
+            if C>0:
+                while (X!=max(x1,x2)+1 and Y!=max(y1,y2)+1):
+                    if (y1-y2)*X-Y*(x1-x2)+b*(x1-x2)<=0:
+                        
+                        X=X+1
+                    else:
+                        
+                        X=X-1
+                        T=T+[(X,Y)]
+                        Y=Y+1
+                    
+            else:
+                X=max(x1,x2)
+                while (X!=min(x1,x2)-1 and Y!=max(y1,y2)+1):
+                    if (y1-y2)*X-Y*(x1-x2)+b*(x1-x2)>=0:
+                        X=X-1
+                    else:
+                        X=X+1
+                        T=T+[(X,Y)]
+                        Y=Y+1
+    return T
             
             
     
@@ -130,17 +190,101 @@ def triangle(image,x1,y1,x2,y2,x3,y3,plein):
             i=i+1
     return
 
-def triangle2(image,x1,y1,x2,y2,x3,y3):
-    l1=y1+y2
-    l2=y3+y2
-    l3=y1+y3
+def triangle2(image,xa,ya,xb,yb,xc,yc):
+    l1=ya+yb
+    l2=yc+yb
+    l3=ya+yc
+    j=0
     lmax= max(l1,l2,l3)
-    p1=x1+x2
-    p2=x3+x2
-    p3=x1+x3
-    pmax=max(p1,p2,p3)
-    if 
+    
+    if l1==lmax:
+        print ('l1')
+        x1=xa
+        x2=xb
+        x3=xc
+        y1=ya
+        y2=yb
+        y3=yc
+        if y1==min(y1,y2):
+            if x1>x3:
+                print ('1')
+                TG=segmentTab(x1,y1,x2,y2)
+                TD=segmentTab(x1,y1,x3,y3)+segmentTab(x3,y3,x2,y2)
+            else:
+                print ('2')
+                TD=segmentTab(x1,y1,x2,y2)
+                TG=segmentTab(x1,y1,x3,y3)+segmentTab(x3,y3,x2,y2)
+        else :
+            if x2>x3:
+                print ('3')
+                TG=segmentTab(x2,y2,x1,y1)
+                TD=segmentTab(x2,y2,x3,y3)+segmentTab(x3,y3,x1,y1)
+            else:
+                print ('4')
+                TD=segmentTab(x2,y2,x1,y1)
+                TG=segmentTab(x2,y2,x3,y3)+segmentTab(x3,y3,x1,y1)
+    elif l2==lmax:
+        print ('l2')
+        x1=xb
+        x2=xc
+        x3=xa
+        y1=yb
+        y2=yc
+        y3=ya
+        if y1==min(y1,y2):
+            if x1>x3:
+                print ('1')
+                TG=segmentTab(x1,y1,x2,y2)
+                TD=segmentTab(x1,y1,x3,y3)+segmentTab(x3,y3,x2,y2)
+            else:
+                print ('2')
+                TD=segmentTab(x1,y1,x2,y2)
+                TG=segmentTab(x1,y1,x3,y3)+segmentTab(x3,y3,x2,y2)
+        else :
+            if x2>x3:
+                print ('3')
+                TG=segmentTab(x2,y2,x1,y1)
+                TD=segmentTab(x2,y2,x3,y3)+segmentTab(x3,y3,x1,y1)
+            else:
+                print ('4')
+                TD=segmentTab(x2,y2,x1,y1)
+                TG=segmentTab(x2,y2,x3,y3)+segmentTab(x3,y3,x1,y1)
+            
+    else :
+        print ('l3')
+        x1=xc
+        x2=xa
+        x3=xb
+        y1=yc
+        y2=ya
+        y3=yb
+        if y1==min(y1,y2):
+            if x1>x3:
+                print ('1')
+                TG=segmentTab(x1,y1,x2,y2)
+                TD=segmentTab(x1,y1,x3,y3)+segmentTab(x3,y3,x2,y2)
+            else:
+                print ('2')
+                TD=segmentTab(x1,y1,x2,y2)
+                TG=segmentTab(x1,y1,x3,y3)+segmentTab(x3,y3,x2,y2)
+        else :
+            if x2>x3:
+                print ('3')
+                TG=segmentTab(x2,y2,x1,y1)
+                TD=segmentTab(x2,y2,x3,y3)+segmentTab(x3,y3,x1,y1)
+            else:
+                print ('4')
+                TD=segmentTab(x2,y2,x1,y1)
+                TG=segmentTab(x2,y2,x3,y3)+segmentTab(x3,y3,x1,y1)
+    print (len(TD),len(TG))
+    affichle(TD,TG)
+    for o in range(0,len(TD)-1):
+        for m in range(TD[o][0],TG[o][0]):
+            image[TD[o][1]][m]=0
 
+def affichle(t,t2):
+    for i in range(len (t)):
+        print (str(t[i])+'   '+str(t2[i])+'\n')
 def creation(text,nomFichier):
     p=open(nomFichier+".pgm", "w")
     p.write(text)
@@ -148,18 +292,25 @@ def creation(text,nomFichier):
 
 
 im=image(400,400)
-segment2(im, 10,90, 20, 60)
-segment2(im, 20,60, 10, 90)
-segment2(im, 20,60, 30, 90)
-segment2(im, 20,60, 40, 60)
 #rectangle(im,20,200,20,20,False)
 #rectangle(im,120,200,30,40,True)
 #segment(im, 20,60, 50, 90)
 #cercle(im,50,300,40,False)
 #cercle(im,150,300,20,False)
 #segment2(im, 0, 0, 399, 399,0)
-triangle(im,20,30,200,30,340,340,False)
 #affiche(convertion(im))
+#triangle2(im,34,150,56,200,150,24)
+#triangle(im,34,150,56,200,150,24,False)
+x1=random.randint(0,399)
+x2=random.randint(0,399)
+x3=random.randint(0,399)
+y1=random.randint(0,399)
+y2=random.randint(0,399)
+y3=random.randint(0,399)
+print(str(x1)+' '+str(y1)+' '+str(x2)+' '+str(y2)+' '+str(x3)+' '+str(y3))
+triangle(im,x1,y1,x2,y2,x2,y3,False)
+triangle2(im,x1,y1,x2,y2,x2,y3)
+#triangle(im,10,150,150,150,150,2,False)
 creation(convertion(im),'ot')
 
 
