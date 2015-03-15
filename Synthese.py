@@ -45,39 +45,73 @@ def cercle (image,x,y,rayon,plein):
                  if (j-x)**2 + (i-y)**2 <= rayon**2:
                      image[i][j]=0
                      
-
-def segment(image, x1, y1, x2, y2):
-    if  x2-x1 ==0:
-        C=((y2-y1)/((x2-x1)+2))
-    else:
-        C=((y2-y1)/(x2-x1))
-    k=y1-C*x1
-    for i in range (min(y1,y2),max(y1,y2)+1):
-        for j in range (min(x1,x2),max(x1,x2)+1):
-            if (C*j)-i+k < 0+1 and (C*j)-i+k > 0-1:
-                image[i][j] =0
                 
 def segment2(image,x1, y1, x2, y2):
     X=min(x1,x2)
     Y=min(y1,y2)
-    #b=y1-C*x1
+
     if (x2-x1)==0:
         while (Y!=max(y1,y2)):
             image [Y][X]=0
             Y=Y+1
+    else:
+        if y2>y1:
+            C=((y2-y1)/(x2-x1))
+            b=y1-C*x1
+            
+            if C>0:
+                while (X!=max(x1,x2)+1 and Y!=max(y1,y2)+1):
+                    if (y2-y1)*X-Y*(x2-x1)+b*(x2-x1)<=0:
+                        image [Y][X]=0
+                        X=X+1
+                    else:
+                        X=X-1
+                        Y=Y+1
+                    
+            else:
+                X=max(x1,x2)
+                while (X!=min(x1,x2)-1 and Y!=max(y1,y2)+1):
+                    if (y2-y1)*X-Y*(x2-x1)+b*(x2-x1)>=0:
+                        image [Y][X]=0
+                        X=X-1
+                    else:
+                        X=X+1
+                        Y=Y+1
+        else:
+            C=((y1-y2)/(x1-x2))
+            b=y1-C*x1
+            
+            if C>0:
+                while (X!=max(x1,x2)+1 and Y!=max(y1,y2)+1):
+                    if (y1-y2)*X-Y*(x1-x2)+b*(x1-x2)<=0:
+                        image [Y][X]=0
+                        X=X+1
+                    else:
+                        X=X-1
+                        Y=Y+1
+                    
+            else:
+                X=max(x1,x2)
+                while (X!=min(x1,x2)-1 and Y!=max(y1,y2)+1):
+                    if (y1-y2)*X-Y*(x1-x2)+b*(x1-x2)>=0:
+                        image [Y][X]=0
+                        X=X-1
+                    else:
+                        X=X+1
+                        Y=Y+1
         
-    #while (X!=max(x1,x2) and Y!=max(y1,y2)):
-    #    if ()
+            
+            
     
 def triangle(image,x1,y1,x2,y2,x3,y3,plein):
     if plein == False:
-        segment(image, x1, y1, x2, y2)
-        segment(image, x2, y2, x3, y3)
-        segment(image, x3, y3, x1, y1)
+        segment2(image, x1, y1, x2, y2)
+        segment2(image, x2, y2, x3, y3)
+        segment2(image, x3, y3, x1, y1)
     else :
-        segment(image, x1, y1, x2, y2)
-        segment(image, x2, y2, x3, y3)
-        segment(image, x3, y3, x1, y1)
+        segment2(image, x1, y1, x2, y2)
+        segment2(image, x2, y2, x3, y3)
+        segment2(image, x3, y3, x1, y1)
         i=0
         j=0
         
@@ -95,6 +129,18 @@ def triangle(image,x1,y1,x2,y2,x3,y3,plein):
             j=0
             i=i+1
     return
+
+def triangle2(image,x1,y1,x2,y2,x3,y3):
+    l1=y1+y2
+    l2=y3+y2
+    l3=y1+y3
+    lmax= max(l1,l2,l3)
+    p1=x1+x2
+    p2=x3+x2
+    p3=x1+x3
+    pmax=max(p1,p2,p3)
+    if 
+
 def creation(text,nomFichier):
     p=open(nomFichier+".pgm", "w")
     p.write(text)
@@ -102,16 +148,19 @@ def creation(text,nomFichier):
 
 
 im=image(400,400)
-segment2(im, 20,60, 20, 90)
+segment2(im, 10,90, 20, 60)
+segment2(im, 20,60, 10, 90)
+segment2(im, 20,60, 30, 90)
+segment2(im, 20,60, 40, 60)
 #rectangle(im,20,200,20,20,False)
 #rectangle(im,120,200,30,40,True)
 #segment(im, 20,60, 50, 90)
 #cercle(im,50,300,40,False)
 #cercle(im,150,300,20,False)
 #segment2(im, 0, 0, 399, 399,0)
-#triangle(im,20,30,200,30,340,340,False)
+triangle(im,20,30,200,30,340,340,False)
 #affiche(convertion(im))
-creation(convertion(im),'o')
+creation(convertion(im),'ot')
 
 
 
