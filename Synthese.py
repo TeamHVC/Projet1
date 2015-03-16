@@ -191,9 +191,12 @@ def triangle(image,x1,y1,x2,y2,x3,y3,plein):
     return
 
 def triangle2(image,xa,ya,xb,yb,xc,yc):
-    l1=ya+yb
-    l2=yc+yb
-    l3=ya+yc
+    #l1=ya+yb
+    #l2=yc+yb
+    #l3=ya+yc
+    l1=max(ya,yb)-min(ya,yb)
+    l2=max(yc,yb)-min(yc,yb)
+    l3=max(ya,yc)-min(ya,yc)
     j=0
     lmax= max(l1,l2,l3)
     
@@ -310,7 +313,8 @@ y3=random.randint(0,399)
 print(str(x1)+' '+str(y1)+' '+str(x2)+' '+str(y2)+' '+str(x3)+' '+str(y3))
 triangle(im,x1,y1,x2,y2,x2,y3,False)
 triangle2(im,x1,y1,x2,y2,x2,y3)
-#triangle(im,10,150,150,150,150,2,False)
+#triangle2(im,286 ,241 ,59 ,237 ,359, 147)
+#triangle(im,286 ,241 ,59 ,237 ,359 ,147,False)
 creation(convertion(im),'ot')
 
 
