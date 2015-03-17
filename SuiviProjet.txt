@@ -40,3 +40,7 @@ Déclarer une matrice d'entiers : int[][] matrice = new int[x][y]
 
 - Séance du mardi 3 Mars :
 Début du codage en Python, affichage d'un fichier .pgm ASCII
+
+- Séance 6 : Mardi 15/03
+Frédéric : Début du code sur Eclipse (Java) : Affichage d'une matrice à partir d'un fichier pgm
+Zack & Aurore : Travail du code sur Python : Fonction Triangle Plein (encore en cours, bug non fixé)
