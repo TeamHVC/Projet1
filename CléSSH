@@ -1,0 +1,17 @@
+Pour ne plus avoir à s'identifier à chaque push :
+
+/!\ Il faut avoir récupéré le dépot en SSH et non en HTTPS
+    --> Rerécupérer le dépot en SSH
+
+1 - Savoir si on a déjà une clé SSH ou non : 
+    Etre dans le bon répertoire : ls ~/.ssh
+    Si non : "Aucun fichier ou dossier de ce type"
+
+2 - ssh-keygen
+3 - ls ~/.ssh : on a normalement deux fichiers : id_rsa (privé) et id_rsa.pub (public)
+4 - Récupérer la clé publique : cat ~/.ssh/id_rsa.pub
+5 - Copier coller la totalité de la clé (de "ssh-rsa à la fin)
+6 - Aller dans les settings de GitHub, dans SSH keys, et AddSSHKey
+7 - Y coller la clé SSH
+
+
