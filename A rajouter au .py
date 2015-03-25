@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from sys import argv
 
-
 def affiche_args() :
     T_Arg = []
     print ("Les arguements sont : ")
