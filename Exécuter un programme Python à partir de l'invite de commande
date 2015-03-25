@@ -1,0 +1,36 @@
+Exécuter un programme Python à partir de l'invite de commande.
+
+Le code suivant :
+
+#!/usr/bin/env python
+from sys import argv
+
+def affiche_args() :
+    print "Les arguements sont : "
+    for arg in argv :
+        print arg
+
+if __name__ == "__main__" :
+    affiche_args()
+
+permet de récupérer les arguments.
+
+1 - Se mettre dans le dossier du programme avec cd
+2 - Donner les droits avec chmod +x NomduFichier.py
+3 - Taper ./NomduFichier.py
+    --> Le programme s'exécute.
+
+Les arguments sont les éléments à récupérer pour savoir quelle fonction exécuter, et quels arguments lui donner.
+
+Ex : ./NomduFichier.py --rectangle im 20 200 20 20 True
+Ici les arguments sont :
+./NomduFichier.py
+--rectangle
+im
+20
+200
+20
+20
+True
+
+--> Créer une fonction qui récupère les arguments et qui appelle la bonne fonction en lui donnant les bons arguments.
