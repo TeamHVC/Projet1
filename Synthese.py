@@ -1,9 +1,8 @@
-from math import *
-from couleur import *  
-import random
-
 #!/usr/bin/env python
+from math import *
+from couleur import *
 from sys import argv
+import random
 
 def affiche_args() :
     T_Arg = []
@@ -19,26 +18,32 @@ def appelle_fonction ():
     
     if T[1] == "--rectangle" :
         NomIm = T[2]
-        T[2]=image(200,200)
-        rectangle (T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]), T[7], T[8])
+        T[2]=image(200,200,couleur["Blanc"])
+        rectangle (T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]), T[7], couleur[T[8]])
         creation(convertion(T[2]), NomIm)
 
     elif T[1] == "--cercle" :
         NomIm = T[2]
-        T[2]=image(200,200)
-        cercle (T[2], int(T[3]), int(T[4]), int(T[5]), T[6],T[7])
+        T[2]=image(200,200,couleur["Blanc"])
+        cercle (T[2], int(T[3]), int(T[4]), int(T[5]), T[6],couleur[T[7]])
         creation(convertion(T[2]), NomIm)
 
     elif T[1] == "--segment" :
         NomIm = T[2]
-        T[2]=image(200,200)
+        T[2]=image(200,200,couleur["Blanc"])
         cercle (T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]),T[7],T[8])
         creation(convertion(T[2]),NomIm)
 
     elif T[1] == "--triangle" :
         NomIm = T[2]        
-        T[2]=image(200,200)
+        T[2]=image(200,200,couleur["Blanc"])
         cercle (T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]), int(T[7]), int(T[8]), T[9],T[10])
+        creation(convertion(T[2]),NomIm)
+
+    elif T[1] == "--point" :
+        NomIm = T[2]        
+        T[2]=image(200,200,couleur["Blanc"])
+        point (T[2], int(T[3]), int(T[4]), couleur[T[5]])
         creation(convertion(T[2]),NomIm)
         
     else : print ("error")
@@ -60,10 +65,10 @@ def convertion (image):
         k=k+'\n'        
     return k
 
-def point (image,x,y,couleur=Noir):
+def point (image,x,y,couleur):
     image[y][x]=couleur
     
-def rectangle (image,x,y,hauteur,largeur,plein,Couleur=Noir):
+def rectangle (image,x,y,hauteur,largeur,plein,couleur):
      for i in range (y-1, y+hauteur-1):
          for j in range (x-1,x+largeur-1):
              if plein :
@@ -71,7 +76,7 @@ def rectangle (image,x,y,hauteur,largeur,plein,Couleur=Noir):
              elif j==x-1 or j==x+largeur-2 or i==y-1 or i==y+hauteur-2:
                  image[i][j]=couleur
                      
-def cercle (image,x,y,rayon,plein,couleur=Noir):
+def cercle (image,x,y,rayon,plein,couleur):
      for i in range (y-rayon,y+rayon+1):
          for j in range (x-rayon,x+rayon+1):
              if plein ==False :
