@@ -1,7 +1,7 @@
 Equipe 2 : TeamHVC
 Membres : - Ciminera Zack : ciminera.zack@gmail.com
-		  - Vouillamoz Frédéric : frederic.vouillamoe@etu.univ-savoie.frederic
-		  - Hurstel Aurore : hurstel.aurore@gmail.com
+	  - Vouillamoz Frédéric : frederic.vouillamoe@etu.univ-savoie.frederic
+ 	  - Hurstel Aurore : hurstel.aurore@gmail.com
 		  
 Gestionnaire de version : Git
 Plateforme pour héberger notre dépôt : Github
@@ -41,6 +41,13 @@ Déclarer une matrice d'entiers : int[][] matrice = new int[x][y]
 - Séance du mardi 3 Mars :
 Début du codage en Python, affichage d'un fichier .pgm ASCII
 
-- Séance 6 : Mardi 15/03
+- Séance 6 : Mardi 15 Mars :
 Frédéric : Début du code sur Eclipse (Java) : Affichage d'une matrice à partir d'un fichier pgm
 Zack & Aurore : Travail du code sur Python : Fonction Triangle Plein (encore en cours, bug non fixé)
+
+Séance 7 : Mercredi 25 Mars :
+Frédéric : Travail du code sur Eclipse (Java)
+	   Problème rencontré : Mettre un fichier en argument
+Zack : Travail sur Python : Nettoyage du code, fin de la fonction Triangle Plein, insertion des couleurs
+Aurore : Comprendre comment exécuter un programme à partir de la ligne de commandes
+ 	 + Ecriture des fonctions permettant d'exécuter un programme Python à partir de l'invite de commande
