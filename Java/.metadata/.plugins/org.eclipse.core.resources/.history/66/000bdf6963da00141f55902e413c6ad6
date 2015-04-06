@@ -1,0 +1,10 @@
+package analyse;
+
+public class X_y {
+	int x_y [] ={0,0};
+
+	public X_y(int bas, int boo) {
+		x_y [0] =bas;
+		x_y [1] =boo;
+	}
+}
