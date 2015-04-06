@@ -19,25 +19,34 @@ def appelle_fonction ():
     if T[1] == "--rectangle" :
         NomIm = T[2]
         T[2]=image(200,200,couleur["Blanc"])
-        rectangle (T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]), T[7], couleur[T[8]])
+        if T[7]=="True":
+            rectangle (T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]), True, couleur[T[8]])
+        else:
+            rectangle (T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]), False, couleur[T[8]])
         creation(convertion(T[2]), NomIm)
 
     elif T[1] == "--cercle" :
         NomIm = T[2]
         T[2]=image(200,200,couleur["Blanc"])
-        cercle (T[2], int(T[3]), int(T[4]), int(T[5]), T[6],couleur[T[7]])
+        if T[6]=="True":
+            cercle (T[2], int(T[3]), int(T[4]), int(T[5]),True,couleur[T[7]])
+        else:
+            cercle (T[2], int(T[3]), int(T[4]), int(T[5]),False,couleur[T[7]])
         creation(convertion(T[2]), NomIm)
 
     elif T[1] == "--segment" :
         NomIm = T[2]
         T[2]=image(200,200,couleur["Blanc"])
-        cercle (T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]),T[7],T[8])
+        segment(T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]),T[7])
         creation(convertion(T[2]),NomIm)
-
+    
     elif T[1] == "--triangle" :
         NomIm = T[2]        
         T[2]=image(200,200,couleur["Blanc"])
-        cercle (T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]), int(T[7]), int(T[8]), T[9],T[10])
+        if T[10]=="True":
+            triangle(T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]), int(T[7]), int(T[8]), couleur[T[9]],True)
+        else:
+            triangle(T[2], int(T[3]), int(T[4]), int(T[5]), int(T[6]), int(T[7]), int(T[8]), couleur[T[9]],False)
         creation(convertion(T[2]),NomIm)
 
     elif T[1] == "--point" :
@@ -65,10 +74,10 @@ def convertion (image):
         k=k+'\n'        
     return k
 
-def point (image,x,y,couleur):
+def point (image,x,y,couleur="0 0 0"):
     image[y][x]=couleur
     
-def rectangle (image,x,y,hauteur,largeur,plein,couleur):
+def rectangle (image,x,y,hauteur,largeur,plein,couleur="0 0 0"):
      for i in range (y-1, y+hauteur-1):
          for j in range (x-1,x+largeur-1):
              if plein :
@@ -76,7 +85,8 @@ def rectangle (image,x,y,hauteur,largeur,plein,couleur):
              elif j==x-1 or j==x+largeur-2 or i==y-1 or i==y+hauteur-2:
                  image[i][j]=couleur
                      
-def cercle (image,x,y,rayon,plein,couleur):
+def cercle (image,x,y,rayon,plein,couleur=
+            "0 0 0"):
      for i in range (y-rayon,y+rayon+1):
          for j in range (x-rayon,x+rayon+1):
              if plein ==False :
@@ -86,19 +96,18 @@ def cercle (image,x,y,rayon,plein,couleur):
                  if (j-x)**2 + (i-y)**2 <= rayon**2:
                      image[i][j]=couleur
                 
-def segment(image,x1, y1, x2, y2,couleur,CreeTab=False):
+def segment(image,x1, y1, x2, y2,couleur,CreeTab=False,cube=False):
     Y=min(y1,y2)
     if Y==y1:
         X=x1
     else:
         X=x2
     T=[]
-    if CreeTab:
-        None
-        #T=T+[(X,Y)]
-    else:
+    if CreeTab==False:
         image [Y][X]=couleur
-                
+    elif not cube:
+        T=T+[(X,Y)]
+        
     if (x2-x1)==0:
         while (Y<max(y1,y2)):
             if CreeTab:
@@ -171,21 +180,21 @@ def reduit (x1,x2,x3,y1,y2,y3,couleur):
     if y1==min(y1,y2):
         if x1>x3:
             print ('1')
-            TG=segment(image,x1,y1,x2,y2,True,couleur)
-            TD=segment(image,x1,y1,x3,y3,True,couleur)+segment(image,x3,y3,x2,y2,True,couleur)
+            TG=segment(image,x1,y1,x2,y2,couleur,True)
+            TD=segment(image,x1,y1,x3,y3,couleur,True)+segment(image,x3,y3,x2,y2,couleur,True,True)
         else:
             print ('2')
-            TD=segment(image,x1,y1,x2,y2,True,couleur)
-            TG=segment(image,x1,y1,x3,y3,True,couleur)+segment(image,x3,y3,x2,y2,True,couleur)
+            TD=segment(image,x1,y1,x2,y2,couleur,True)
+            TG=segment(image,x1,y1,x3,y3,couleur,True)+segment(image,x3,y3,x2,y2,couleur,True,True)
     else :
         if x2>x3:
             print ('3')
-            TG=segment(image,x2,y2,x1,y1,True,couleur)
-            TD=segment(image,x2,y2,x3,y3,True,couleur)+segment(image,x3,y3,x1,y1,True,couleur)
+            TG=segment(image,x2,y2,x1,y1,couleur,True)
+            TD=segment(image,x2,y2,x3,y3,couleur,True)+segment(image,x3,y3,x1,y1,couleur,True,True)
         else:
             print ('4')
-            TD=segment(image,x2,y2,x1,y1,True,couleur)
-            TG=segment(image,x2,y2,x3,y3,True,couleur)+segment(image,x3,y3,x1,y1,True,couleur)
+            TD=segment(image,x2,y2,x1,y1,couleur,True)
+            TG=segment(image,x2,y2,x3,y3,couleur,True)+segment(image,x3,y3,x1,y1,couleur,True,True)
     return (TD,TG)
     
 def triangle(image,xa,ya,xb,yb,xc,yc,couleur,plein):
