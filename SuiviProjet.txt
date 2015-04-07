@@ -54,3 +54,6 @@ Aurore : Comprendre comment exécuter un programme à partir de la ligne de comm
 
 - Séance 8 : Mercredi 1er Avril :
 On a tout fini. POISSON D'AVRIL !
+
+- Séance 9 : Mardi 7 Avril :
+Création de makefiles, travail du code Java (analyse), insertion du code permettant de lire les arguments.
