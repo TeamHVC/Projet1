@@ -53,12 +53,12 @@ def appelle_fonction ():
     else : print ("error")
     
 def image (largeur,hauteur,couleur):
-    matrice = [[couleur for j in range(0,largeur)]for i in range(0,hauteur)]
+    matrice = [[couleur for j in range(0,hauteur)]for i in range(0,largeur)]
     return matrice
 
 def convertion (image):             
     k='P3\n'
-    k=k+str(len(image))+' '+str(len(image[0]))+'\n'
+    k=k+str(len(image[0]))+' '+str(len(image))+'\n'
     k=k+str(255)+'\n'
     for i in range (0,len(image)):
         for j in range (0,len(image[0])):
@@ -69,29 +69,32 @@ def convertion (image):
         k=k+'\n'        
     return k
 
-def point (image,x,y,couleur):
-    image[y][x]=couleur
+def point (image,x,y,couleur=couleur["Noir"]):
+    if x< len(image[0]) and jx>=0 and y<len(image) and y>=0:
+        image[y][x]=couleur
     
-def rectangle (image,x,y,hauteur,largeur,plein,couleur):
-     for i in range (y-1, y+hauteur-1):
-         for j in range (x-1,x+largeur-1):
-             if plein :
-                 image[i][j]=couleur
-             elif j==x-1 or j==x+largeur-2 or i==y-1 or i==y+hauteur-2:
-                 image[i][j]=couleur
+def rectangle (image,x,y,hauteur,largeur,plein,couleur=couleur["Noir"]):
+     for i in range (y-1, y+hauteur):
+         for j in range (x-1,x+largeur):
+             
+             if j< len(image[0]) and j>=0 and i<len(image) and i>=0:
+                 if plein :
+                     image[i][j]=couleur
+                 elif j==x-1 or j==x+largeur-1 or i==y-1 or i==y+hauteur-1:
+                     image[i][j]=couleur
                      
-def cercle (image,x,y,rayon,plein,couleur):
+def cercle (image,x,y,rayon,plein,couleur=couleur["Noir"]):
      for i in range (y-rayon,y+rayon+1):
          for j in range (x-rayon,x+rayon+1):
-             if plein ==False :
-                 if (j-x)**2 + (i-y)**2 < rayon**2+rayon and (j-x)**2 + (i-y)**2> rayon**2-rayon:
-                     image[i][j]=couleur
-             else:
-                 if (j-x)**2 + (i-y)**2 <= rayon**2:
-                     image[i][j]=couleur
+             if j< len(image[0]) and j>=0 and i<len(image) and i>=0:
+                 if plein ==False :
+                     if (j-x)**2 + (i-y)**2 < rayon**2+rayon and (j-x)**2 + (i-y)**2> rayon**2-rayon:
+                         image[i][j]=couleur
+                 else:
+                     if (j-x)**2 + (i-y)**2 <= rayon**2:
+                         image[i][j]=couleur
                 
 def segment(image,x1, y1, x2, y2,couleur,CreeTab=False,cube=False):
-    
     Y=min(y1,y2)
     if Y==y1:
         X=x1
@@ -99,41 +102,33 @@ def segment(image,x1, y1, x2, y2,couleur,CreeTab=False,cube=False):
         X=x2
     T=[]
     if x1==x2:
-       
         while (Y<=max(y1,y2)):
             if CreeTab:
                 T=T+[(X,Y)]
             else:
-                image [Y][X]=couleur
+                if X< len(image[0]) and X>=0 and Y<len(image) and Y>=0:
+                    image [Y][X]=couleur
             Y=Y+1
     elif y1==y2:
-        
         if CreeTab:
                 T=T+[(X,Y)]
         for i in range(min(x1,x2),max(x1,x2)):
             if CreeTab==False:
-                image [Y][i]=couleur
+                if i< len(image[0]) and i>=0 and Y<len(image) and Y>=0:
+                    image [Y][i]=couleur
     else:
-        
         if y2>y1:
-            print(str(y2)+" "+str(y1)+" "+str(x2)+" "+str(x1))
             C=((y2-y1)/(x2-x1))
-            
-            print("C = "+(str((y2-y1)//(x2-x1))))
             b=y1-C*x1
-            print("b = "+(str(y1-C*x1)))
             if C>0:
                 while (Y<=max(y1,y2)):
-        
-                    print((y2-y1)*X-Y*(x2-x1)+b*(x2-x1))
-                    if ((y2-y1)*X-Y*(x2-x1)+b*(x2-x1)<=0 or (X==max(x1,x2) and Y==min(y1,y2))):
-
-                        
+                    if (y2-y1)*X-Y*(x2-x1)+b*(x2-x1)<=0 or (X==max(x1,x2) and Y==min(y1,y2)):
                         if CreeTab==False:
-                            image [Y][X]=couleur
+                            if X< len(image[0]) and X>=0 and Y<len(image) and Y>=0:
+                                image [Y][X]=couleur
+                            
                         X=X+1
                     else:
-                        
                         X=X-1
                         if CreeTab and not cube:
                             T=T+[(X,Y)]
@@ -141,11 +136,11 @@ def segment(image,x1, y1, x2, y2,couleur,CreeTab=False,cube=False):
                         Y=Y+1
             else:
                 X=max(x1,x2)
-                
                 while (Y<=max(y1,y2)):
                     if (y2-y1)*X-Y*(x2-x1)+b*(x2-x1)>=0 or (X==max(x1,x2) and Y==min(y1,y2)):
                         if CreeTab==False:
-                            image [Y][X]=couleur
+                            if X< len(image[0]) and X>=0 and Y<len(image) and Y>=0:
+                                image [Y][X]=couleur
                         X=X-1
                     else:
                         X=X+1
@@ -156,14 +151,13 @@ def segment(image,x1, y1, x2, y2,couleur,CreeTab=False,cube=False):
                         
         else:
             C=((y1-y2)/(x1-x2))
-            
             b=y1-C*x1
-            
             if C>0:
                 while (Y<=max(y1,y2)):
                     if (y1-y2)*X-Y*(x1-x2)+b*(x1-x2)<=0 or (X==max(x1,x2) and Y==min(y1,y2)):
                         if CreeTab==False:
-                            image [Y][X]=couleur
+                            if X< len(image[0]) and X>=0 and Y<len(image) and Y>=0:
+                                image [Y][X]=couleur
                         X=X+1
                     else:
                         X=X-1
@@ -173,12 +167,12 @@ def segment(image,x1, y1, x2, y2,couleur,CreeTab=False,cube=False):
                         Y=Y+1
                         
             else:
-                
                 X=max(x1,x2)
                 while (Y<=max(y1,y2)):
                     if (y1-y2)*X-Y*(x1-x2)+b*(x1-x2)>=0 or (X==max(x1,x2) and Y==min(y1,y2)):
                         if CreeTab==False:
-                            image [Y][X]=couleur
+                            if X< len(image[0]) and X>=0 and Y<len(image) and Y>=0:
+                                image [Y][X]=couleur
                         X=X-1
                     else:
                         X=X+1
@@ -186,13 +180,13 @@ def segment(image,x1, y1, x2, y2,couleur,CreeTab=False,cube=False):
                             T=T+[(X,Y)]
                             cube=True
                         Y=Y+1
-    
     if CreeTab:
         return T
     else:
         return None
     
 def reduit (x1,x2,x3,y1,y2,y3,couleur):
+
     if x1==x2:
         if(y1==min(y1,y2)):
             if x3>x1:
@@ -237,6 +231,7 @@ def triangle(image,xa,ya,xb,yb,xc,yc,couleur,plein):
     l1=max(ya,yb)-min(ya,yb)
     l2=max(yc,yb)-min(yc,yb)
     l3=max(ya,yc)-min(ya,yc)
+    
     lmax= max(l1,l2,l3)
     if plein == False :
         segment(image, xa, ya, xb, yb,couleur)
@@ -251,7 +246,8 @@ def triangle(image,xa,ya,xb,yb,xc,yc,couleur,plein):
             TD,TG=reduit(xc,xa,xb,yc,ya,yb,couleur)
         for o in range(0,len(TD)-1):
             for m in range(TG[o][0],TD[o][0]):
-                image[TG[o][1]][m]=couleur
+                if m< len(image[0]) and m>=0 and TG[o][1]<len(image) and TG[o][1]>=0:
+                    image[TG[o][1]][m]=couleur
     
 def creation(text,nomFichier):
     p=open(nomFichier+".ppm", "w")
