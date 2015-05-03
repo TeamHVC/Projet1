@@ -18,11 +18,11 @@ def appelle_fonction ():
     
     if T[1] == "--rectangle" :
         im=image(200,200,couleur["Blanc"])
-        if T[6]=="True":
-            rectangle (im, int(T[2]), int(T[3]), int(T[4]), int(T[5]), True, couleur[T[7]])
+        if T[7]=="True":
+            rectangle (im, int(T[3]), int(T[4]), int(T[5]), int(T[6]), True, couleur[T[7]])
         else :
-            rectangle (im, int(T[2]), int(T[3]), int(T[4]), int(T[5]), False, couleur[T[7]])
-        creation(convertion(im),"flute")
+            rectangle (im, int(T[3]), int(T[4]), int(T[5]), int(T[6]), False, couleur[T[7]])
+        creation(convertion(im),T[2])
         
     elif T[1] == "--cercle" :
         im=image(200,200,couleur["Blanc"])
