@@ -1,0 +1,389 @@
+package rechercheFormes;
+
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+
+public class RechercheFormes {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String uneLigne = null;
+		//la ligne qu'on lit actuellement
+		boolean fini = false;
+		//pour arreter l'analyse
+		int[] tablargeurhauteur = new int[2];
+		//tableau qui recupere la largeur et la hauteur
+		
+		String schiffre ="";
+		//variable servant a faire la concatenation des chiffres, qu'on transformera apres en entier 
+		
+		
+		
+		uneLigne = br.readLine();
+		
+		
+		
+		
+		//recuperation de la largeur et la hauteur 
+		
+		
+		// ici i =1 car on commence par le deuxieme caractere pour eviter le 1er caractere qui sera un '|'
+		int unchiffre = 0;
+		for (int i=1; i<= uneLigne.length()-1;i++){
+			if(uneLigne.charAt(i)==' '){
+			tablargeurhauteur[unchiffre]= Integer.parseInt(schiffre); 
+				unchiffre++;
+				schiffre = "";
+
+				
+			}
+			else{
+				
+				schiffre = schiffre + uneLigne.charAt(i);
+				
+			}
+			
+			
+		}
+		
+		int largeur = tablargeurhauteur[0];//tablargeurhauteur[0] sera la largeur,
+		int hauteur = tablargeurhauteur[1];//tablargeurhauteur[1] sera la hauteur
+		System.out.println("largeur de l'image = " + largeur);
+		System.out.println("hauteur de l'image = " + hauteur);
+		
+		uneLigne = br.readLine();
+		
+		// recuperation de la valeur maximale pour chaque composante RGB (inutile)
+		
+		uneLigne = br.readLine();
+		
+		
+		//ajout de toutes les valeurs dans une matrice 
+		
+		String [][] point = new String[hauteur][largeur];
+		String uneCouleur ="";
+		int ligne = 0;
+		int colonne = 0;
+		while (! fini){ 
+			
+			for (int i=1; i<= uneLigne.length()-1;i++){
+				if(uneLigne.charAt(i)=='|'){
+					point[colonne][ligne]= uneCouleur;
+					colonne ++;
+					uneCouleur ="";
+					
+				}
+				else{
+					uneCouleur = uneCouleur +uneLigne.charAt(i);
+				}
+				
+	
+			}
+				ligne++;
+				colonne = 0;
+			
+			
+			uneLigne = br.readLine();
+
+
+			if (uneLigne == null) {
+			fini = true;
+			}
+			else{
+			fini = false;
+			}
+		}
+		br.close();	
+		
+		//recherche des points a gauche
+		
+		
+		ArrayList<Points>tabgauche = new ArrayList<Points>();
+
+		int jg = 0;
+		boolean trouveg;
+		
+		for (int i=0; i< point.length;i++){
+			trouveg = false;
+			while (! trouveg){
+				
+				jg++;
+				if(jg==point.length){
+					trouveg = true;
+				}
+				else if (! point[jg][i].equals("255 255 255")){
+					tabgauche.add(new Points(jg,i));
+					trouveg = true;
+					
+				}
+				else{
+					trouveg = false;
+				}
+				
+				
+			}
+			
+			jg = 0;
+		}
+		
+		
+		//recherche des points a droite
+		
+		
+		ArrayList<Points>tabdroite = new ArrayList<Points>();
+
+		int jd = point[0].length;
+		boolean trouved;
+		
+		for (int i=0; i< point.length;i++){
+			trouved = false;
+			while (! trouved){
+				
+				jd--;
+				
+				if(jd==0){
+					trouved = true;
+				}
+				else if (! point[jd][i].equals("255 255 255")){
+					
+					tabdroite.add(new Points(jd,i));
+					trouved = true;
+					
+				}
+				else{
+					trouved = false;
+				}
+				
+				
+			}
+			
+			jd = point[0].length;
+			
+		}
+
+
+		
+		//comparaison
+		DictionnaireCouleur dico = new DictionnaireCouleur();
+		// System.out.println("couleur = " + dico.donneCouleur("255 255 255"));
+
+		
+		
+		boolean droiteverticalegauche = false;
+		
+		for (int i=0; i<tabgauche.size()-1;i++){
+			if (tabgauche.get(i).x==tabgauche.get(i+1).x){
+				droiteverticalegauche = true;
+			}
+			else{
+				droiteverticalegauche = false;
+				break;
+			}
+			
+
+		}
+		
+		
+		boolean droiteverticaledroite = false;
+		for (int i=0; i<tabdroite.size()-1;i++){
+			if (tabdroite.get(i).x==tabdroite.get(i+1).x){
+				droiteverticaledroite = true;
+			}
+			else{
+				droiteverticaledroite = false;
+				break;
+			}
+			
+
+		}
+		
+		
+		
+		boolean memecol = false ;
+		
+		for (int i=0; i<tabgauche.size();i++){
+			if (tabgauche.get(i).x==tabdroite.get(i).x){
+				memecol = true;
+			}
+			else{
+				memecol = false;
+			}
+			
+		}
+		
+		
+		if(tabgauche.get(0).x==tabgauche.get(0).y==tabdroite.get(0).x==tabdroite.get(0).y && tabgauche.size()==1){
+			System.out.println("La forme est le point(x="+tabgauche.get(0).x+",y="+tabgauche.get(0).y+" de couleur "+dico.donneCouleur(point[tabgauche.get(0).x][tabgauche.get(0).y]));
+		
+		}
+		else if(droiteverticalegauche && droiteverticaledroite){
+			if(memecol){
+				System.out.println("La forme est un segment vertical du point(x="+tabgauche.get(0).x+",y="+tabgauche.get(0).y+") au point(x="+tabgauche.get(tabgauche.size()-1).x+",y="+tabgauche.get(tabgauche.size()-1).y+") et de couleur "+dico.donneCouleur(point[tabgauche.get(0).x][tabgauche.get(0).y]));
+			}
+		
+			else{
+				
+				System.out.println("La forme est un rectangle qui commence au point(x="+tabgauche.get(0).x+",y="+tabgauche.get(0).y+") de largeur "+(tabdroite.get(0).x-tabgauche.get(0).x)+" pixels, de hauteur "+(tabgauche.get(tabgauche.size()-1).y-tabgauche.get(0).y)+" pixels et de couleur "+ dico.donneCouleur(point[tabgauche.get(0).x][tabgauche.get(0).y]));
+			}
+		}
+		else {
+			boolean estUnCercle=true;
+			for (int j=0;j<(tabgauche.size()/2);j++){
+				if(tabgauche.get(j).x != tabgauche.get(tabgauche.size()-(j+1)).x && tabdroite.get(j).x != tabdroite.get(tabdroite.size()-(j+1)).x && !droiteverticalegauche &&  !droiteverticaledroite){
+					estUnCercle=false;
+				}
+				
+			}
+			if(estUnCercle){
+				System.out.print("La forme est un cercle de centre x="+(tabdroite.get((tabdroite.size()-1)/2).x-((tabdroite.get((tabdroite.size()-1)/2).x-tabgauche.get((tabgauche.size()-1)/2).x))/2));
+				System.out.print(" y="+(tabgauche.get(tabgauche.size()-1).y-(tabgauche.get(tabgauche.size()-1).y-tabgauche.get(0).y)/2));
+				System.out.print(" et de rayon "+(((tabdroite.get((tabdroite.size()-1)/2).x-tabgauche.get((tabgauche.size()-1)/2).x))/2)+" pixels");
+				System.out.print(" de couleur "+dico.donneCouleur(point[tabgauche.get(0).x][tabgauche.get(0).y]));
+			}
+			else{
+				int xMinG=0;
+				int xMaxD=0;
+				boolean estUnTriangle=false;
+				boolean estUnSegment=false;
+				//repere le plus grand x du tableau gauche
+				for (int k=1;k<(tabgauche.size());k++){
+					if (tabgauche.get(xMinG).x > tabgauche.get(k).x){
+						xMinG=k;
+					}
+				}
+				 
+				//si le plus petit x du tableau gauche est situe au y le plus petit
+				if(xMinG==0){
+					//on repere le plus petit x du tableau droite
+					for (int k=1;k<(tabdroite.size());k++){
+						if (tabdroite.get(xMaxD).x < tabdroite.get(k).x){
+							xMaxD=k;
+						}
+					}
+					//si le plus grand x du tableau droite est situe au y le plus petit
+					if(xMaxD==0){
+						estUnTriangle=true;
+					}
+					//si le plus grand x du tableau droite est situe au y le plus grand
+					else if(xMaxD==tabdroite.size()-1){
+						//on creer les variables qui nous servent a verifier si un point est dans la droite
+						float y2=tabdroite.get(tabdroite.size()-1).y;
+						float y1=(tabdroite.get(0)).y;
+						float x2=tabdroite.get(tabdroite.size()-1).x;
+						float x1=(tabdroite.get(0)).x;
+						float X=tabdroite.get((tabdroite.size()-1)/3).x;
+						float Y=tabdroite.get((tabdroite.size()-1)/3).y;
+						float C=((y2-y1)/(x2-x1));
+						float b=y1-(C*x1);
+						float p=(y2-y1)*X-Y*(x2-x1)+b*(x2-x1);
+						//on regarde pour plusieurs points si il y en a un qui appartient a l'equation de la droite
+						for (int i=(tabgauche.size()-1)/4;i<tabgauche.size();i++){
+							X=tabgauche.get(i).x;
+							Y=tabgauche.get(i).y;
+							p=(int)(y2-y1)*X-Y*(x2-x1)+b*(x2-x1);
+							 if (p==0){
+							    	estUnSegment=true;
+							    }
+							    else{
+							    	estUnTriangle=true;
+							    }
+						}
+						
+					}
+					else{
+						estUnTriangle=true;
+					}
+				}
+				//si le plus petit x du tableau gauche est situe au y le plus grand
+				else if(xMinG==tabgauche.size()-1){
+					//repere le plus grand x du tableau droite
+					
+					for (int k=1;k<(tabdroite.size());k++){
+						if (tabdroite.get(xMaxD).x < tabdroite.get(k).x){
+							xMaxD=k;
+						}
+					}
+					//si le plus grand x du tableau droite est situe au y le plus petit
+					if(xMaxD==0){
+						//on creer les variables qui nous servent a verifier si un point est dans la droite
+						float y2=tabdroite.get(tabdroite.size()-1).y;
+						float y1=(tabdroite.get(0)).y;
+						float x2=tabdroite.get(tabdroite.size()-1).x;
+						float x1=(tabdroite.get(0)).x;
+						float X=tabdroite.get((tabdroite.size()-1)/2).x;
+						float Y=tabdroite.get((tabdroite.size()-1)/2).y;
+						float C=((y2-y1)/(x2-x1));
+						float b=y1-(C*x1);
+						float p=(y2-y1)*X-Y*(x2-x1)+b*(x2-x1);
+						//on regarde pour plusieurs points si il y en a un qui appartient a l'equation de la droite
+						for (int i=(tabgauche.size()-1)/4;i<tabgauche.size();i++){
+							X=tabgauche.get(i).x;
+							Y=tabgauche.get(i).y;
+							p=(int)(y2-y1)*X-Y*(x2-x1)+b*(x2-x1);
+							 if (p==0){
+							    	estUnSegment=true;
+							    }
+							    else{
+							    	estUnTriangle=true;
+							    }
+						}
+					}
+					//si le plus grand x du tableau droite est situe au y le plus grand
+					else if(xMaxD==tabgauche.size()-1){
+						estUnTriangle=true;
+					}
+					else{
+						estUnTriangle=true;
+					}
+				}
+				//si le plus petit x du tableau gauche n'est ni situe au y le plus petit ni au y le plus grand c'est un triangle
+				else{
+					//on creer les variables qui nous servent a verifier si un point est dans la droite
+					float y2=tabgauche.get(tabgauche.size()-1).y;
+					float y1=(tabgauche.get(0)).y;
+					float x2=tabgauche.get(tabgauche.size()-1).x;
+					float x1=(tabgauche.get(0)).x;
+					float X=tabgauche.get((tabgauche.size()-1)/2).x;
+					float Y=tabgauche.get((tabgauche.size()-1)/2).y;
+					float C=((y2-y1)/(x2-x1));
+					float b=y1-(C*x1);
+					float p=(y2-y1)*X-Y*(x2-x1)+b*(x2-x1);
+					//on regarde pour plusieur point si il y en a un qui appartient a l'equation de la droite
+					for (int i=(tabgauche.size()-1)/4;i<tabgauche.size();i++){
+						X=tabgauche.get(i).x;
+						Y=tabgauche.get(i).y;
+						p=(int)(y2-y1)*X-Y*(x2-x1)+b*(x2-x1);
+						 if (p==0){
+						    	estUnSegment=true;
+						    }
+						    else{
+						    	estUnTriangle=true;
+						    }
+					}
+				   
+				}
+				if(estUnSegment){
+					System.out.print("La forme est un segment de couleur "+dico.donneCouleur(point[tabgauche.get(0).x][tabgauche.get(0).y]));
+				}
+				else {
+					System.out.print("La forme est un triangle de couleur "+dico.donneCouleur(point[tabgauche.get(0).x][tabgauche.get(0).y]));
+					
+				}
+			}
+		}
+
+		
+
+
+
+	}
+
+}
+
+
+
