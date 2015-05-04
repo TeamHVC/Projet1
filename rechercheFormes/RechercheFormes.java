@@ -221,8 +221,9 @@ public class RechercheFormes {
 			}
 			//regarde si les points constitus un rectangle
 			else{
-				
-				System.out.println("La forme est un rectangle qui commence au point(x="+tabgauche.get(0).x+",y="+tabgauche.get(0).y+") de largeur "+(tabdroite.get(0).x-tabgauche.get(0).x)+" pixels, de hauteur "+(tabgauche.get(tabgauche.size()-1).y-tabgauche.get(0).y)+" pixels et de couleur "+ dico.donneCouleur(point[tabgauche.get(0).x][tabgauche.get(0).y]));
+				int o =(int)tabgauche.get(0).x+1;
+				int p =(int)tabgauche.get(0).y+1;
+				System.out.println("La forme est un rectangle qui commence au point(x="+o+",y="+p+") de largeur "+(tabdroite.get(0).x-tabgauche.get(0).x)+" pixels, de hauteur "+(tabgauche.get(tabgauche.size()-1).y-tabgauche.get(0).y)+" pixels et de couleur "+ dico.donneCouleur(point[tabgauche.get(0).x][tabgauche.get(0).y]));
 			}
 		}
 		else {
